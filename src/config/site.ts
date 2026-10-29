@@ -16,6 +16,8 @@ export const contact = {
   email: process.env.NEXT_PUBLIC_CONTACT_EMAIL ?? "",
   bookingUrl: process.env.NEXT_PUBLIC_BOOKING_URL ?? "",
   instagramUrl: process.env.NEXT_PUBLIC_INSTAGRAM_URL ?? "",
+  // How fast enquiries get a reply, e.g. "a few hours" or "one working day".
+  replyTime: process.env.NEXT_PUBLIC_REPLY_TIME ?? "",
 };
 
 export type ServiceKey = "landing-pages" | "motion-ads" | "ad-creatives" | "carousels" | "graphic-design";
