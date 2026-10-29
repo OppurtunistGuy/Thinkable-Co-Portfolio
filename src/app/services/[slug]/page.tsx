@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { WhatsAppButton } from "@/components/WhatsAppButton";
 import { services, type ServiceKey } from "@/config/site";
+import { FormatSamples, ServiceHeroPreview } from "@/components/ServiceMocks";
 import { WorkCard } from "@/components/WorkCard";
 import { serviceContent, steps } from "@/content/services";
 import { workFor } from "@/content/work";
@@ -50,7 +51,8 @@ export default async function ServicePage({ params }: { params: Promise<Params> 
   return (
     <>
       {/* Hero */}
-      <section className="mx-auto flex max-w-[1200px] flex-col gap-[22px] px-6 pb-10 pt-14">
+      <section className="mx-auto flex max-w-[1200px] flex-wrap items-center gap-12 px-6 pb-12 pt-14">
+       <div className="flex min-w-0 flex-[999_1_520px] flex-col gap-[22px]">
         <nav aria-label="Breadcrumb" className="text-sm text-muted">
           <ol className="flex flex-wrap gap-1.5">
             <li><Link href="/" className="text-muted">Home</Link> /</li>
@@ -73,34 +75,42 @@ export default async function ServicePage({ params }: { params: Promise<Params> 
             Typical time: <strong className="text-text">{s.time}</strong>
           </span>
         </div>
+       </div>
+        <ServiceHeroPreview service={s.key} />
       </section>
 
       {/* Examples */}
       <section className="mx-auto flex max-w-[1200px] flex-col gap-5 px-6 pb-10 pt-6">
         <h2 className={h2}>Examples</h2>
-        {real.length > 0 ? (
-          <ul className="grid grid-cols-[repeat(auto-fill,minmax(280px,1fr))] gap-6">
+        {real.length > 1 ? (
+          <ul className="grid grid-cols-[repeat(auto-fit,minmax(280px,1fr))] gap-6">
             {real.map((w) => (
               <li key={w.slug}>
                 <WorkCard item={w} />
               </li>
             ))}
           </ul>
+        ) : real.length === 1 ? (
+          <div className="flex flex-wrap items-start gap-8">
+            <div className="min-w-0 flex-[2_1_480px]">
+              <WorkCard item={real[0]} />
+            </div>
+            <div className="flex min-w-0 flex-[1_1_260px] flex-col gap-3 rounded-[18px] border border-line bg-card p-6">
+              <h3 className="font-display text-xl font-extrabold">Want one like this?</h3>
+              <p className="text-[15px] leading-normal text-muted">Every page is designed around the business it sells for. Tell us about yours and we&apos;ll show you what it could look like.</p>
+              <Link href={`/contact?service=${s.key}#form`} className="self-start font-bold text-text underline underline-offset-4">Start a brief</Link>
+            </div>
+          </div>
         ) : (
-        <ul className="grid gap-5" style={{ gridTemplateColumns: `repeat(auto-fit, minmax(${s.minCol}px, 1fr))` }}>
-          {s.samples.map((x) => (
-            <li key={x.frame}>
-              <figure className="flex flex-col gap-2.5">
-                <div className="flex items-center justify-center rounded-[18px] border border-line bg-card p-4 text-center text-sm text-muted" style={{ aspectRatio: s.ratio }}>
-                  {x.frame}
-                </div>
-                <figcaption className="text-sm text-muted">{x.caption}</figcaption>
-              </figure>
-            </li>
-          ))}
-        </ul>
+          <>
+            <FormatSamples service={s.key} />
+            <p className="text-[15px] text-muted">
+              These are sample layouts to show the formats we deliver. Client projects for this service are being added. Meanwhile, see our{" "}
+              <Link href="/work" className="font-bold text-text underline underline-offset-4">motion ads and websites</Link>.
+            </p>
+          </>
         )}
-        <p className="text-sm text-muted">Each example is shown in the client&apos;s own style, not ours.</p>
+        {real.length > 0 && <p className="text-sm text-muted">Each example is shown in the client&apos;s own style, not ours.</p>}
       </section>
 
       {/* What you get */}

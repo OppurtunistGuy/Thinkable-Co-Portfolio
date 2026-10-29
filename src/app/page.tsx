@@ -66,14 +66,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Client logos */}
-      <section aria-label="Clients" className="border-y border-line">
-        <ul className="mx-auto flex max-w-[1200px] flex-wrap justify-between gap-x-8 gap-y-3 px-6 py-5 text-[15px] text-muted">
-          {Array.from({ length: 5 }).map((_, i) => (
-            <li key={i}>[CLIENT LOGO]</li>
-          ))}
-        </ul>
-      </section>
+      {/* Client logo strip removed until real logos can be shown with permission. */}
 
       {/* Services */}
       <section id="services" className="mx-auto flex max-w-[1200px] scroll-mt-6 flex-col gap-8 px-6 pb-8 pt-[88px]">
