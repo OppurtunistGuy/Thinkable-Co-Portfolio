@@ -1,32 +1,72 @@
 import type { ServiceKey } from "@/config/site";
 
-// Placeholder work items. Replace each with a real project:
-// image path, project name, business type and city, and one result line.
+// Real projects. To add one: put the compressed video (or image) and its cover
+// image in public/work/, then add an entry here. Only add work the client is
+// happy to show. Result lines describe what was made; no invented numbers.
 export type WorkItem = {
+  slug: string;
   service: ServiceKey;
-  frame: string;
+  /** Shown on the card instead of the service name when more specific. */
+  kind: string;
   name: string;
   client: string;
-  result: string;
+  summary: string;
+  video: string;
+  poster: string;
+  /** Aspect ratio of the video itself. */
+  ratio: string;
+  featured?: boolean;
 };
 
 export const work: WorkItem[] = [
-  { service: "landing-pages", frame: "[LANDING PAGE SCREENSHOT]", name: "[Project name]", client: "[Business type, city]", result: "[One line on the result.]" },
-  { service: "motion-ads", frame: "[REEL]", name: "[Project name]", client: "[Business type, city]", result: "[One line on the result.]" },
-  { service: "carousels", frame: "[CAROUSEL COVER]", name: "[Project name]", client: "[Business type, city]", result: "[One line on the result.]" },
-  { service: "ad-creatives", frame: "[AD CREATIVE]", name: "[Project name]", client: "[Business type, city]", result: "[One line on the result.]" },
-  { service: "graphic-design", frame: "[POSTER OR MENU]", name: "[Project name]", client: "[Business type, city]", result: "[One line on the result.]" },
-  { service: "landing-pages", frame: "[LANDING PAGE SCREENSHOT]", name: "[Project name]", client: "[Business type, city]", result: "[One line on the result.]" },
-  { service: "motion-ads", frame: "[REEL]", name: "[Project name]", client: "[Business type, city]", result: "[One line on the result.]" },
-  { service: "ad-creatives", frame: "[AD CREATIVE]", name: "[Project name]", client: "[Business type, city]", result: "[One line on the result.]" },
-  { service: "carousels", frame: "[CAROUSEL COVER]", name: "[Project name]", client: "[Business type, city]", result: "[One line on the result.]" },
+  {
+    slug: "ukdiche-modak-website",
+    service: "landing-pages",
+    kind: "Animated website",
+    name: "Ukdiche Modak",
+    client: "Homemade modak business, Pimpri-Chinchwad",
+    summary: "Animated ordering website with a product picker that sends the order straight to WhatsApp.",
+    video: "/work/ukdiche-modak-website.mp4",
+    poster: "/work/ukdiche-modak-website.jpg",
+    ratio: "1280 / 730",
+    featured: true,
+  },
+  {
+    slug: "bloom-cafe-reel",
+    service: "motion-ads",
+    kind: "Motion ad · 15s",
+    name: "Bloom",
+    client: "Cafe and Chinese, Purnanagar, Chinchwad",
+    summary: "Festive offer reel with location and QR code, built for Instagram Reels.",
+    video: "/work/bloom-cafe-reel.mp4",
+    poster: "/work/bloom-cafe-reel.jpg",
+    ratio: "9 / 16",
+    featured: true,
+  },
+  {
+    slug: "coliwo-reel",
+    service: "motion-ads",
+    kind: "Motion ad · 20s",
+    name: "Coliwo",
+    client: "Coliving and coworking, Pune",
+    summary: "Typography-led reel for working professionals moving to a new city.",
+    video: "/work/coliwo-reel.mp4",
+    poster: "/work/coliwo-reel.jpg",
+    ratio: "9 / 16",
+    featured: true,
+  },
+  {
+    slug: "bird-valley-ad",
+    service: "motion-ads",
+    kind: "Motion ad · 15s · 16:9",
+    name: "Bird Valley",
+    client: "Restaurant",
+    summary: "Animated dish showcase for YouTube and wide screens.",
+    video: "/work/bird-valley-ad.mp4",
+    poster: "/work/bird-valley-ad.jpg",
+    ratio: "16 / 9",
+  },
 ];
 
-/** Frame shape per service, matching the real format of the work. */
-export const frameRatio: Record<ServiceKey, string> = {
-  "landing-pages": "16 / 10",
-  "motion-ads": "9 / 16",
-  "ad-creatives": "1 / 1",
-  carousels: "4 / 5",
-  "graphic-design": "3 / 4",
-};
+export const featuredWork = work.filter((w) => w.featured);
+export const workFor = (service: ServiceKey) => work.filter((w) => w.service === service);

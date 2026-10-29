@@ -3,7 +3,9 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { WhatsAppButton } from "@/components/WhatsAppButton";
 import { services, type ServiceKey } from "@/config/site";
+import { WorkCard } from "@/components/WorkCard";
 import { serviceContent, steps } from "@/content/services";
+import { workFor } from "@/content/work";
 
 type Params = { slug: string };
 
@@ -43,6 +45,7 @@ export default async function ServicePage({ params }: { params: Promise<Params> 
   const s = getService(slug);
   if (!s) notFound();
   const related = services.filter((x) => x.key !== s.key);
+  const real = workFor(s.key);
 
   return (
     <>
@@ -75,6 +78,15 @@ export default async function ServicePage({ params }: { params: Promise<Params> 
       {/* Examples */}
       <section className="mx-auto flex max-w-[1200px] flex-col gap-5 px-6 pb-10 pt-6">
         <h2 className={h2}>Examples</h2>
+        {real.length > 0 ? (
+          <ul className="grid grid-cols-[repeat(auto-fill,minmax(280px,1fr))] gap-6">
+            {real.map((w) => (
+              <li key={w.slug}>
+                <WorkCard item={w} />
+              </li>
+            ))}
+          </ul>
+        ) : (
         <ul className="grid gap-5" style={{ gridTemplateColumns: `repeat(auto-fit, minmax(${s.minCol}px, 1fr))` }}>
           {s.samples.map((x) => (
             <li key={x.frame}>
@@ -87,6 +99,7 @@ export default async function ServicePage({ params }: { params: Promise<Params> 
             </li>
           ))}
         </ul>
+        )}
         <p className="text-sm text-muted">Each example is shown in the client&apos;s own style, not ours.</p>
       </section>
 

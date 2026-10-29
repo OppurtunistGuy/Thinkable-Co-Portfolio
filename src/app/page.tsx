@@ -1,13 +1,10 @@
 import Link from "next/link";
 import { WhatsAppButton } from "@/components/WhatsAppButton";
+import { WorkCard } from "@/components/WorkCard";
+import { WorkVideo } from "@/components/WorkVideo";
+import { featuredWork } from "@/content/work";
 import { contact, services } from "@/config/site";
 import { hasBooking, hasEmail, hasWhatsApp, whatsappHref } from "@/lib/contact";
-
-const work = [
-  { frame: "[WORK SAMPLE: LANDING PAGE]", service: "Landing page" },
-  { frame: "[WORK SAMPLE: MOTION AD]", service: "Motion ad" },
-  { frame: "[WORK SAMPLE: CAROUSEL]", service: "Carousel" },
-];
 
 const steps = [
   { title: "1. Brief", text: "Tell us about your business on WhatsApp, email or a quick call. We ask a few short questions." },
@@ -56,17 +53,16 @@ export default function Home() {
             <WhatsAppButton />
           </div>
         </div>
-        <div className="relative h-[420px] min-w-0 flex-[1_1_380px] overflow-hidden rounded-3xl border border-line bg-card" aria-hidden="true">
-          <div className="float-a absolute left-[8%] top-[12%] h-[52%] w-[46%] rounded-[18px] bg-accent p-[18px] font-display text-xl font-extrabold text-on-accent">
-            [MOTION AD FRAME]
+        <div className="relative h-[440px] min-w-0 flex-[1_1_380px] overflow-hidden rounded-3xl border border-line bg-card">
+          <div className="float-c absolute left-[6%] right-[6%] top-[7%] aspect-[1280/730] shadow-2xl">
+            <WorkVideo src="/work/ukdiche-modak-website.mp4" poster="/work/ukdiche-modak-website.jpg" ratio="1280 / 730" label="Ukdiche Modak animated website" />
           </div>
-          <div className="float-b absolute right-[8%] top-[22%] h-[60%] w-[40%] rounded-[18px] border border-line bg-bg p-[18px] text-sm text-muted">
-            [LANDING PAGE PREVIEW]
+          <div className="float-a absolute bottom-[5%] left-[8%] h-[58%] aspect-[9/16] shadow-2xl">
+            <WorkVideo src="/work/bloom-cafe-reel.mp4" poster="/work/bloom-cafe-reel.jpg" ratio="9 / 16" label="Bloom cafe motion ad" />
           </div>
-          <div className="float-c absolute bottom-[8%] left-[18%] h-[22%] w-[52%] rounded-[14px] border border-line bg-bg px-[18px] py-3.5 text-sm text-muted">
-            [CAROUSEL SLIDES]
+          <div className="float-b absolute bottom-[5%] right-[8%] h-[58%] aspect-[9/16] shadow-2xl">
+            <WorkVideo src="/work/coliwo-reel.mp4" poster="/work/coliwo-reel.jpg" ratio="9 / 16" label="Coliwo motion ad" />
           </div>
-          <p className="absolute bottom-3 left-4 text-xs text-muted">Showreel motion builds here as you scroll</p>
         </div>
       </section>
 
@@ -109,11 +105,9 @@ export default function Home() {
           <Link href="/work" className="border-b-2 border-accent pb-1 font-bold text-text no-underline">See all work</Link>
         </div>
         <ul className="grid grid-cols-[repeat(auto-fit,minmax(300px,1fr))] gap-5">
-          {work.map((w, i) => (
-            <li key={i} className="flex flex-col gap-3">
-              <div className="flex aspect-[4/3] items-center justify-center rounded-[18px] border border-line bg-card text-sm text-muted">{w.frame}</div>
-              <h3 className="font-bold">[Project name]</h3>
-              <p className="text-sm text-muted">{w.service} · [business type, city]</p>
+          {featuredWork.map((w) => (
+            <li key={w.slug}>
+              <WorkCard item={w} />
             </li>
           ))}
         </ul>
